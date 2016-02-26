@@ -18,7 +18,7 @@ trait BlockStorage extends ScorexLogging {
   def state: LagonakiState
 
   //Append block to current state
-  def appendBlock(block: Block): Try[Unit] = synchronized {
+  def appendBlock(block: Block): Try[Unit] = {
     val st = System.currentTimeMillis()
     history.appendBlock(block).map { blocks =>
       blocks foreach { b =>
@@ -36,7 +36,7 @@ trait BlockStorage extends ScorexLogging {
   }
 
   //Should be used for linear blockchain only
-  def removeAfter(signature: BlockId): Unit = synchronized {
+  def removeAfter(signature: BlockId): Unit = {
     history match {
       case h: BlockChain =>
         val height = h.heightOf(signature).get
