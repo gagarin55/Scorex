@@ -31,8 +31,8 @@ trait BlockStorage extends ScorexLogging {
           case Success(m) =>
         }
       }
+      log.info(s"appended in ${System.currentTimeMillis() - st}")
     }
-    log.info(s"appended in ${System.currentTimeMillis() - st}")
   }
 
   //Should be used for linear blockchain only
