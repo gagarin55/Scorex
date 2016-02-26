@@ -19,6 +19,7 @@ trait BlockStorage extends ScorexLogging {
 
   //Append block to current state
   def appendBlock(block: Block): Try[Unit] = synchronized {
+    val st = System.currentTimeMillis()
     history.appendBlock(block).map { blocks =>
       blocks foreach { b =>
         state.processBlock(b) match {
@@ -31,6 +32,7 @@ trait BlockStorage extends ScorexLogging {
         }
       }
     }
+    log.info(s"appended in ${System.currentTimeMillis() - st}")
   }
 
   //Should be used for linear blockchain only

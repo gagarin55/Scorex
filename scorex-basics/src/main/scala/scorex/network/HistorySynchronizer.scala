@@ -190,9 +190,8 @@ class HistorySynchronizer(application: Application) extends ViewSynchronizer wit
   }
 
   private def processNewBlock(block: Block, local: Boolean): Boolean = Try {
-    val st = System.currentTimeMillis()
     if (block.isValid) {
-      val ch = System.currentTimeMillis()
+      val st = System.currentTimeMillis()
       log.info(s"New block(local: $local): ${block.json}")
 
       if (local) networkControllerRef ! SendToNetwork(Message(BlockMessageSpec, Right(block), None), Broadcast)
@@ -204,7 +203,7 @@ class HistorySynchronizer(application: Application) extends ViewSynchronizer wit
           block.transactionModule.clearFromUnconfirmed(block.transactionDataField.value)
           val f = System.currentTimeMillis()
           log.info(
-            s"""Block ${block.encodedId} checked in ${ch - st} and appended in ${f - ch}.
+            s"""Block ${block.encodedId} appended in ${f - st}.
             (height, score) = ($oldHeight, $oldScore) vs (${history.height()}, ${history.score()})""")
           true
         case Failure(e) =>
