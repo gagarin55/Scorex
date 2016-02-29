@@ -198,12 +198,14 @@ class HistorySynchronizer(application: Application) extends ViewSynchronizer wit
 
       val oldHeight = history.height()
       val oldScore = history.score()
+      val mid = System.currentTimeMillis()
       transactionalModule.blockStorage.appendBlock(block) match {
         case Success(_) =>
+          val t = System.currentTimeMillis()
           block.transactionModule.clearFromUnconfirmed(block.transactionDataField.value)
           val f = System.currentTimeMillis()
           log.info(
-            s"""Block ${block.encodedId} appended in ${f - st}.
+            s"""Block ${block.encodedId} appended in ${f - st}| ${f - mid} | ${f - t}.
             (height, score) = ($oldHeight, $oldScore) vs (${history.height()}, ${history.score()})""")
           true
         case Failure(e) =>
