@@ -207,7 +207,7 @@ class HistorySynchronizer(application: Application) extends ViewSynchronizer wit
           block.transactionModule.clearFromUnconfirmed(block.transactionDataField.value)
           println("208:" + System.currentTimeMillis())
           log.info(
-            s"""Block ${block.encodedId} appended in ${f - st}| ${f - mid} | ${f - t}.
+            s"""Block ${block.encodedId} appended in .
             (height, score) = ($oldHeight, $oldScore) vs (${history.height()}, ${history.score()})""")
           true
         case Failure(e) =>
