@@ -11,4 +11,8 @@ trait TransactionSettings {
   private val DefaultMaxRollback = 100
   lazy val MaxRollback = (settingsJSON \ "maxRollback").asOpt[Int].getOrElse(DefaultMaxRollback)
 
+  lazy val minimumTxFee = (settingsJSON \ "minimumTxFee").asOpt[Int].getOrElse(DefaultMinimumTxFee)
+  private val DefaultMinimumTxFee = 1
+
+  lazy val unconfirmedTxPoolSize = 1000
 }

@@ -10,7 +10,7 @@ import scorex.network.message.Message
 import scorex.network.{Broadcast, NetworkController, TransactionalMessagesRepo}
 import scorex.settings.Settings
 import scorex.transaction.SimpleTransactionModule.StoredInBlock
-import scorex.transaction.state.database.UnconfirmedTransactionsDatabaseImpl
+import scorex.transaction.state.database.UnconfirmedTransactionsDatabase
 import scorex.transaction.state.database.blockchain.{StoredState, StoredBlockTree, StoredBlockchain}
 import scorex.transaction.state.wallet.Payment
 import scorex.utils._
@@ -51,7 +51,7 @@ class SimpleTransactionModule(implicit val settings: TransactionSettings with Se
 
   private val instance = this
 
-  override val utxStorage: UnconfirmedTransactionsStorage = new UnconfirmedTransactionsDatabaseImpl
+  override val utxStorage: UnconfirmedTransactionsStorage = new UnconfirmedTransactionsDatabase(settings)
 
   override val blockStorage = new BlockStorage {
 
